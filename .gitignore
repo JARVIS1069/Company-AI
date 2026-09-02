@@ -1,0 +1,21 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+
+# Trained model artifacts
+models/*.joblib
+
+# OS junk
+.DS_Store
+Thumbs.db

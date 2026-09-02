@@ -1,0 +1,5 @@
+sku,current_stock,lead_time_days
+SKU-001,180,5
+SKU-002,60,7
+SKU-003,200,3
+SKU-004,90,6
