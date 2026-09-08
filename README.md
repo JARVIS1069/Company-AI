@@ -1,13 +1,13 @@
 # Company AI — Multi-Agent Organization System
 
-A role-based multi-agent AI organization that demonstrates how AI agents collaborate through **planning, execution, validation, approval, and release** — using a real Demand Forecasting & Inventory Optimization pipeline as the working example.
+A role-based multi-agent AI organization that demonstrates how AI agents collaborate through **planning, execution, validation, approval, and release** — using a real Demand Forecasting & Inventory Optimization pipeline.
 
-11 agents, each with real logic, RBAC-enforced permissions, structured message handoffs, and a full audit trail — from project kickoff to production release, backed by a real trained ML model and a live dashboard.
+11 agents, each with real logic, RBAC-enforced permissions, structured message handoffs, and a full audit trail — from project kickoff to production release, backed by a real trained ML model and a full API.
 
 ## What's actually real here
 
 - **Real ML**: a LightGBM model is trained on real (synthetic but realistic) sales data, evaluated on a held-out time-based test split. Reported MAPE ≈ 12%.
-- **Real validation**: QA re-reads the raw dataset directly, checks RMSE/MAE/MAPE against thresholds, and actually loads the saved model from disk to run a live prediction — not just trusting a status string.
+- **Real validation**: QA re-reads the raw dataset directly, checks RMSE/MAE/MAPE against thresholds, and actually loads the saved model from disk to run a live prediction — not just trusting a stat.
 - **Real permissions**: every agent's allowed actions are enforced by an RBAC layer, not just suggested by convention.
 - **Real audit trail**: every message send/receive/denial is logged with a timestamp, viewable via the API or the dashboard.
 
@@ -51,6 +51,20 @@ company-ai/
 ├── models/                   # Trained model artifact lands here (.joblib)
 └── README.md
 ```
+
+## System Architecture
+
+![Company AI System Architecture](https://github.com/JARVIS1069/Company-AI/raw/main/architecture-diagram.svg)
+
+The architecture shows:
+- **Browser** connects to the **React + Vite frontend** via HTTP
+- **FastAPI backend** exposes REST endpoints (`/org`, `/kickoff`, `/audit-log`, `/message`, `/history`)
+- **Event Bus** enables async pub/sub messaging between agents
+- **RBAC / Permissions** enforces role-based access control on all message sends
+- **Audit Log** maintains an append-only trail of every send, receive, and denial
+- **11 Agents** orchestrate the entire pipeline from planning to release
+- **ML Layer** handles data preparation, model training, inventory optimization, and validation
+- **Data Layer** stores CSV datasets and trained model artifacts
 
 ## How to run it
 
@@ -97,7 +111,7 @@ Alternatively, run it without any server at all:
 python -m backend.demo_workflow
 ```
 
-This prints the full cascade, audit trail, and proves both the happy path and the failure-handling paths (QA blocking bad data, Release blocking forged approvals, Reviewer catching bad math) directly in your terminal.
+This prints the full cascade, audit trail, and proves both the happy path and the failure-handling paths (QA blocking bad data, Release blocking forged approvals, Reviewer catching bad math) directly to stdout.
 
 ## API endpoints
 
